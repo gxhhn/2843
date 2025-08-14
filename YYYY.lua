@@ -1,7 +1,7 @@
-local LBLG = Instance.new("ScreenGui")
-local LBL = Instance.new("TextLabel")
+local LBLG = Instance.new("ScreenGui", getParent)
+local LBL = Instance.new("TextLabel", getParent)
 local player = game.Players.LocalPlayer
-    
+
 LBLG.Name = "LBLG"
 LBLG.Parent = game.CoreGui
 LBLG.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -24,55 +24,44 @@ LBL.Visible = true
 local FpsLabel = LBL
 local Heartbeat = game:GetService("RunService").Heartbeat
 local LastIteration, Start
-local FrameUpdateTable = {}
+local FrameUpdateTable = { }
+
+game:GetService("StarterGui"):SetCore("SendNotification",{ Title = "Y脚本v5"; Text ="启动中"; Duration = 2; })wait("3")
+
+game:GetService("StarterGui"):SetCore("SendNotification",{ Title = "Y脚本v5"; Text ="3"; Duration = 2; })wait("2")
+
+game:GetService("StarterGui"):SetCore("SendNotification",{ Title = "Y脚本"; Text ="2"; Duration = 2; })wait("2")
+
+game:GetService("StarterGui"):SetCore("SendNotification",{ Title = "Y脚本"; Text ="1"; Duration = 2; })wait("1")
+
+game:GetService("StarterGui"):SetCore("SendNotification",{ Title = "Y脚本"; Text ="成功启动"; Duration = 3; })
 
 local function HeartbeatUpdate()
-    LastIteration = tick()
-    for Index = #FrameUpdateTable, 1, -1 do
-        FrameUpdateTable[Index + 1] = (FrameUpdateTable[Index] >= LastIteration - 1) and FrameUpdateTable[Index] or nil
-    end
-    FrameUpdateTable[1] = LastIteration
-    local CurrentFPS = (tick() - Start >= 1 and #FrameUpdateTable) or (#FrameUpdateTable / (tick() - Start))
-    CurrentFPS = CurrentFPS - CurrentFPS % 1
-    FpsLabel.Text = ("时间:"..os.date("%H").."时"..os.date("%M").."分"..os.date("%S"))
+        LastIteration = tick()
+        for Index = #FrameUpdateTable, 1, -1 do
+                FrameUpdateTable[Index + 1] = (FrameUpdateTable[Index] >= LastIteration - 1) and FrameUpdateTable[Index] or nil
+        end
+        FrameUpdateTable[1] = LastIteration
+        local CurrentFPS = (tick() - Start >= 1 and #FrameUpdateTable) or (#FrameUpdateTable / (tick() - Start))
+        CurrentFPS = CurrentFPS - CurrentFPS % 1
+        FpsLabel.Text = ("Y时间:"..os.date("%H").."时"..os.date("%M").."分"..os.date("%S"))
 end
-
 Start = tick()
 Heartbeat:Connect(HeartbeatUpdate)
 
-local FpsGui = Instance.new("ScreenGui")
-local FpsXS = Instance.new("TextLabel")
-FpsGui.Name = "FPSGui"
-FpsGui.ResetOnSpawn = false
-FpsGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-FpsXS.Name = "FpsXS"
-FpsXS.Size = UDim2.new(0, 100, 0, 50)
-FpsXS.Position = UDim2.new(0, 10, 0, 10)
-FpsXS.BackgroundTransparency = 1
-FpsXS.Font = Enum.Font.SourceSansBold
-FpsXS.Text = "帧率: 0"
-FpsXS.TextSize = 20
-FpsXS.TextColor3 = Color3.new(1, 1, 1)
-FpsXS.Parent = FpsGui
+local ui = loadstring(game:HttpGet("https://pastebin.com/raw/3vQbADjh", true))();                
+local win = ui:new("Y脚本")
+--
+local UITab1 = win:Tab("信息",'16060333448')
 
-local function updateFpsXS()
-    local fps = math.floor(1 / game:GetService("RunService").RenderStepped:Wait())
-    FpsXS.Text = "帧率: " .. fps
-end
+local about = UITab1:section("作者信息",false)
 
-game:GetService("RunService").RenderStepped:Connect(updateFpsXS)
-FpsGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-local ui = loadstring(game:HttpGet("https://shz.al/eAaSpWJZMP8SPcPsT8PHDifj"))();
-local win = ui:new("剑客V5")
-
-local UITab1 = win:Tab("『信息』",'16060333448')
-local about = UITab1:section("『LENG Script』",false)
 about:Label("Y脚本")
-about:Label("QQ主群：1055935003")
-about:Label("作者：小yo")
-about:Label("有bug进群反馈")
-about:Label("对该脚本有帮助的")
+about:Label("作者：Y（帮助人：凡尘")
+about:Label("qq群1055935003")
+about:Label("欢迎使用")
+about:Label("感谢支持")
+about:Label("最新推出")
 
 local UITab1 = win:Tab("『加入服务器』",'16060333448')
 local about = UITab1:section("『加入服务器』",false)
